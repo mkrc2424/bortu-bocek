@@ -1,0 +1,8 @@
+{
+  "name": "bortu-bocek",
+  "version": "1.0.0",
+  "description": "Börtü Böcek - çevrimiçi böcek itme oyunu",
+  "private": true,
+  "scripts": { "start": "node server/server.js" },
+  "engines": { "node": ">=18" }
+}

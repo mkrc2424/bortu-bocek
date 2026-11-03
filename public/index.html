@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#14200f">
+<title>Börtü Böcek</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hud"><span id="hw"></span><span id="hs"></span></div>
+<div id="banner"></div>
+<button id="ab" class="act" aria-label="Yetenek"></button>
+<button id="dash" class="act" aria-label="Hamle">Hamle</button>
+<div id="ov"><div class="box">
+  <h1 id="t">Börtü Böcek</h1>
+  <p id="sub">İt, düşür, ayakta kal!</p>
+  <div class="row" id="pm"></div>
+  <div class="row"><input id="n1" maxlength="12" value="Oyuncu 1" aria-label="1. oyuncu adı"><input id="n2" maxlength="12" value="Oyuncu 2" aria-label="2. oyuncu adı"></div>
+  <div class="lab" id="h1">Böcek</div><div class="row" id="bl"></div>
+  <div class="lab" id="h2">2. oyuncu böceği</div><div class="row" id="bl2"></div>
+  <div class="lab">Alan</div><div class="row" id="al"></div>
+  <div class="lab">Savaş</div><div class="row" id="ml"></div>
+  <div id="on" class="row"><input id="rc" maxlength="10" placeholder="oda kodu" aria-label="Oda kodu"><button class="mini" id="hb">Oda kur</button><button class="mini" id="jb">Katıl</button></div>
+  <p id="li"></p>
+  <p id="info"></p>
+  <div class="row"><button id="go">Başla</button><button class="mini" id="lv">Menü</button></div>
+  <p id="hint"></p>
+</div></div>
+<script src="config.js"></script>
+<script src="sim.js"></script>
+<script src="render.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
