@@ -51,7 +51,7 @@ function Game() {
     let d = 2.5 * k * m;
     if (Y.arm > 0) d *= .3;
     if (Y.put > 0 && Y.pu === 'k') d *= .5;
-    Y.can -= d; Y.hf = .25; Y.lh = X;
+    Y.can -= d; Y.hf = .25; Y.lh = X; ev('hurt', Y.pid || '');
     if (Y.can <= 0 && !Y.fall) { Y.can = 0; Y.fall = .001; Y.fe = 2; kill(Y); }
   }
   function tgt(b) {
@@ -75,11 +75,11 @@ function Game() {
     if (b.cd > 0 || b.fall) return;
     const h = hs(b);
     b.vx += Math.cos(b.a) * 720 * K * h; b.vy += Math.sin(b.a) * 720 * K * h;
-    b.dashT = .28; b.cd = b.pid ? 1.1 : 2.2;
+    b.dashT = .28; b.cd = b.pid ? 1.1 : 2.2; ev('dash');
   }
   function ability(b) {
     if (b.abCd > 0 || b.fall) return;
-    b.abCd = BUG[b.sp].cd;
+    b.abCd = BUG[b.sp].cd; ev('ab');
     if (b.sp === 'g') { b.sup = .6; b.dashT = .5; b.vx += Math.cos(b.a) * 1100 * K; b.vy += Math.sin(b.a) * 1100 * K; }
     else if (b.sp === 'p') {
       for (const o of G.bs) {
@@ -115,7 +115,7 @@ function Game() {
       if (!b) b = spawnPlayer(e, i, n);
       const ang = Math.PI / 2 + (n > 1 ? (i - (n - 1) / 2) * .6 : 0);
       Object.assign(b, { x: Math.cos(ang) * rr, y: Math.sin(ang) * rr, vx: 0, vy: 0, a: ang + Math.PI, arm: 0, fly: 0, sup: 0, put: 0, pu: '', cd: 0,
-        fall: 0, sc: 1, dead: false, fe: 0, nm: e.nm, ix: i, can: b.can <= 0 ? b.mc * .5 : Math.min(b.mc, b.can + b.mc * .35) });
+        fall: 0, fs: 0, sc: 1, dead: false, fe: 0, nm: e.nm, ix: i, can: b.can <= 0 ? b.mc * .5 : Math.min(b.mc, b.can + b.mc * .35) });
       humans.push(b);
     });
     G.bs = humans;
@@ -125,7 +125,7 @@ function Game() {
       const e = mk(FOE[pool[Math.random() * pool.length | 0]], Math.cos(an) * rr, Math.sin(an) * rr);
       e.a = an + Math.PI; G.bs.push(e);
     }
-    banner('Dalga ' + G.wave + ' · ' + ARENA[G.arena].n);
+    banner('Dalga ' + G.wave + ' · ' + ARENA[G.arena].n); ev('wave');
   }
 
   G.addPlayer = (pid, nm, sp) => { if (!G.roster.has(pid)) G.roster.set(pid, { pid, nm: String(nm || 'Oyuncu').slice(0, 12), sp: BUG[sp] ? sp : 'g', score: 0, b: null }); };
@@ -155,6 +155,7 @@ function Game() {
     for (const b of G.bs) {
       b.cd -= dt; b.dashT -= dt; b.hornCd -= dt; b.arm -= dt; b.fly -= dt; b.sup -= dt; b.put -= dt; b.abCd -= dt; b.hf -= dt;
       if (b.fall > 0) {
+        if (!b.fs) { b.fs = 1; ev('fall', Math.round(b.x), Math.round(b.y), b.pid || ''); }
         b.fall += dt; b.sc = Math.max(0, 1 - b.fall * 1.5);
         const kk = b.fe === 2 ? 0 : b.fe ? -1.2 : 5; b.x += (0 - b.x) * dt * kk; b.y += (0 - b.y) * dt * kk;
         if (b.fall > .7) b.dead = true;
@@ -194,7 +195,7 @@ function Game() {
       if (b.fly <= 0 && dc < HR) { b.fall = .001; kill(b); }
       for (const u of G.pups) if (u.l > 0 && Math.hypot(u.x - b.x, u.y - b.y) < b.r + 14 * K) {
         if (u.k === 'c') b.can = Math.min(b.mc, b.can + b.mc * .4); else { b.pu = u.k; b.put = 5; }
-        u.l = 0;
+        u.l = 0; ev('pk', b.pid || '');
         if (b.pid) banner(b.nm + ' ' + ({ h: '⚡ Hız', g: '💪 Güç', k: '🛡️ Kalkan', c: '❤ Can' })[u.k]);
       }
     }
@@ -217,7 +218,7 @@ function Game() {
           const pw = 240 * K * str / em(Y);
           Y.vx += nx * s * pw; Y.vy += ny * s * pw; X.vx -= nx * s * 70 * K; X.vy -= ny * s * 70 * K;
           X.hornCd = .4; hurt(X, Y, nx * s, ny * s, str);
-          ev('fx', (Aa.x + Bb.x) / 2, (Aa.y + Bb.y) / 2, 1); ev('sh', X.dashT > 0 ? 9 : 4);
+          ev('fx', (Aa.x + Bb.x) / 2, (Aa.y + Bb.y) / 2, 1, X.dashT > 0 ? 1 : 0); ev('sh', X.dashT > 0 ? 9 : 4);
         }
       }
     }

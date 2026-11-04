@@ -103,12 +103,14 @@ class Room {
   }
 }
 
+function genCode() { let c; do { c = Math.random().toString(36).slice(2, 6); } while (c.length < 4 || rooms.has(c)); return c; }
 function onClient(c) {
   c.lastIn = Date.now();
   c.onmsg = m => {
+    if (m.t === 'list') return c.send({ t: 'rooms', d: [...rooms.values()].filter(r => r.clients.size).map(r => ({ code: r.code, n: r.clients.size, max: MAX_PLAYERS, host: (r.game.roster.get(r.host) || {}).nm || '?', st: r.game.state, mode: r.mode, arena: r.arena })) });
     if (m.t === 'join') {
       if (c.room) return;
-      const code = code4(m.room); if (!code) return c.send({ t: 'err', m: 'Oda kodu yaz (harf ve rakam).' });
+      const code = code4(m.room) || (m.create ? genCode() : ''); if (!code) return c.send({ t: 'err', m: 'Oda kodu yaz (harf ve rakam).' });
       let r = rooms.get(code);
       if (!r) { if (!m.create) return c.send({ t: 'err', m: 'Bu kodla oda yok. Önce biri "Oda kur" demeli.' }); if (rooms.size >= MAX_ROOMS) return c.send({ t: 'err', m: 'Sunucu dolu, biraz sonra dene.' }); r = new Room(code); rooms.set(code, r); }
       else if (m.create && r.clients.size) return c.send({ t: 'err', m: 'Bu oda kodu kullanımda, başka bir kod dene.' });

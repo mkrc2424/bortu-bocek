@@ -16,23 +16,25 @@
 <button id="ab" class="act" aria-label="Yetenek"></button>
 <button id="dash" class="act" aria-label="Hamle">Hamle</button>
 <div id="ov"><div class="box">
+  <button id="infoBtn" aria-label="Bilgi">i</button>
+  <button id="sndBtn" aria-label="Ses">🔊</button>
+  <button id="musBtn" aria-label="Müzik">🎵</button>
   <h1 id="t">Börtü Böcek</h1>
-  <p id="sub">İt, düşür, ayakta kal!</p>
+  <p id="sub"></p>
+  <input id="nick" maxlength="12" placeholder="Takma adın" aria-label="Takma ad" autocomplete="off">
   <div class="row" id="pm"></div>
-  <div class="row"><input id="n1" maxlength="12" value="Oyuncu 1" aria-label="1. oyuncu adı"><input id="n2" maxlength="12" value="Oyuncu 2" aria-label="2. oyuncu adı"></div>
-  <div class="lab" id="h1">Böcek</div><div class="row" id="bl"></div>
-  <div class="lab" id="h2">2. oyuncu böceği</div><div class="row" id="bl2"></div>
-  <div class="lab">Alan</div><div class="row" id="al"></div>
-  <div class="lab">Savaş</div><div class="row" id="ml"></div>
-  <div id="on" class="row"><input id="rc" maxlength="10" placeholder="oda kodu" aria-label="Oda kodu"><button class="mini" id="hb">Oda kur</button><button class="mini" id="jb">Katıl</button></div>
+  <div class="row" id="sel"></div>
+  <div id="on"><button class="mini" id="hb">+ Yeni oda kur</button><div id="rl"></div></div>
   <p id="li"></p>
-  <p id="info"></p>
+  <p id="st"></p>
   <div class="row"><button id="go">Başla</button><button class="mini" id="lv">Menü</button></div>
-  <p id="hint"></p>
 </div></div>
+<div id="sheet" hidden><div class="panel"><h2 id="shT"></h2><div class="row" id="shB"></div><button class="mini" id="shX">Kapat</button></div></div>
+<div id="infoM" hidden><div class="panel wide"><h2>Bilgi</h2><div id="infoBody"></div><button class="mini" id="infoX">Kapat</button></div></div>
 <script src="config.js"></script>
 <script src="sim.js"></script>
 <script src="render.js"></script>
+<script src="audio.js"></script>
 <script src="game.js"></script>
 </body>
 </html>

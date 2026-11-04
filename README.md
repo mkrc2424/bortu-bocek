@@ -12,12 +12,12 @@ Oyun kuralları sunucuda çalışır. Herkes aynı oyunu görür, hile yapılama
 1. https://nodejs.org adresinden Node.js (LTS) kur.
 2. Bu klasörde bir terminal aç ve şunu yaz: `node server/server.js`
 3. Tarayıcıda `http://localhost:3000` aç. Tek ve İki kişi hemen oynanır.
-4. Online denemek için iki sekme aç: 🌐 Online seç, aynı oda kodunu yaz, birinde "Oda kur", diğerinde "Katıl". Kurucu "Başla"ya basar.
+4. Online denemek için iki sekme aç: ikisinde de 🌐 Online seç. Birinde "+ Yeni oda kur" de. Diğerinde açık odalar listesinde o oda görünür, ona dokun. Kurucu "Başla"ya basar.
 
 ## 2. İnternete koy (ücretsiz)
 Önerim: **Render** (ayarlar hazır).
 1. Bu klasörü GitHub'a yükle (github.com → New repository → dosyaları sürükle).
-2. render.com'da hesap aç → New → Blueprint → GitHub deponu seç. `render.yaml` her şeyi kendisi ayarlar.
+2. render.com'da hesap aç → New + → Web Service (Blueprint değil, o kart isteyebilir) → GitHub deponu seç → Start Command: `node server/server.js`, Instance Type: Free → Deploy.
 3. Birkaç dakika sonra `https://bortu-bocek-xxxx.onrender.com` gibi bir adresin olur. Oyun orada açılır, arkadaşların aynı adresi açıp oda kodu ile girer.
 
 **Ücretsiz sürümün sınırları (dürüst olalım):**
